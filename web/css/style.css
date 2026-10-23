@@ -1,0 +1,192 @@
+/* ========== 全局 ========== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== 聊天容器 ========== */
+.chat-container {
+  width: 400px;
+  height: 680px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ========== 顶部 ========== */
+.chat-header {
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.shop-info { display: flex; align-items: center; gap: 10px; }
+.avatar {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.shop-name { font-weight: 600; font-size: 15px; }
+.shop-status { font-size: 12px; opacity: 0.9; display: flex; align-items: center; gap: 4px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ffb74d; display: inline-block; }
+.status-dot.online { background: #4caf50; }
+.status-dot.offline { background: #f44336; }
+.btn-icon {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-icon:hover { background: rgba(255,255,255,0.3); }
+
+/* ========== 消息区 ========== */
+.message-area {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: #f5f5f7;
+}
+
+/* 欢迎消息 */
+.welcome-message {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.welcome-icon { font-size: 32px; margin-bottom: 8px; }
+
+/* 消息气泡 */
+.msg { margin-bottom: 14px; display: flex; }
+.msg.user { justify-content: flex-end; }
+.msg-content {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+.msg.bot .msg-content {
+  background: #fff;
+  color: #333;
+  border-top-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.msg.user .msg-content {
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  color: #fff;
+  border-top-right-radius: 4px;
+}
+.msg.typing .msg-content {
+  background: #fff;
+  color: #999;
+  font-style: italic;
+}
+.msg.typing .msg-content::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ccc;
+  border-top-color: #ff6a00;
+  border-radius: 50%;
+  margin-left: 6px;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 客服消息标记 */
+.msg.bot.human-agent .msg-content {
+  background: #e3f2fd;
+  border-left: 3px solid #2196f3;
+}
+
+/* 转人工提示 */
+.handoff-notice {
+  text-align: center;
+  margin: 10px 0;
+  color: #ff6a00;
+  font-size: 13px;
+  background: #fff3e0;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* ========== 快捷按钮 ========== */
+.quick-questions {
+  padding: 8px 12px;
+  background: #fff;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid #eee;
+}
+.quick-btn {
+  background: #f0f2f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #555;
+}
+.quick-btn:hover { background: #ff6a00; color: #fff; border-color: #ff6a00; }
+.quick-btn.handoff { border-color: #ff9800; color: #ff9800; }
+.quick-btn.handoff:hover { background: #ff9800; color: #fff; }
+
+/* ========== 输入区 ========== */
+.input-area {
+  padding: 12px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+#inputBox {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#inputBox:focus { border-color: #ff6a00; }
+.btn-send {
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-send:hover { opacity: 0.9; }
+.btn-send:disabled { opacity: 0.5; cursor: not-allowed; }

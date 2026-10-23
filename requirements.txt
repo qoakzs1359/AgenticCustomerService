@@ -1,0 +1,24 @@
+# Web 框架
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# 配置管理
+pydantic-settings>=2.4
+python-dotenv>=1.0
+
+# 数据库
+SQLAlchemy>=2.0
+aiomysql>=0.2.0
+redis>=5.0
+
+# 向量库 & Embedding
+qdrant-client>=1.10
+sentence-transformers>=2.2
+
+# LLM 调用（DeepSeek 兼容 OpenAI 协议）
+openai>=1.45
+
+# 工具
+loguru>=0.7
+python-dateutil>=2.9

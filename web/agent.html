@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客服后台 - 人工坐席</title>
+  <link rel="stylesheet" href="/web/css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+    }
+    .agent-layout {
+      display: flex;
+      gap: 20px;
+      width: 1000px;
+      height: 680px;
+      padding: 20px;
+    }
+    .queue-panel {
+      width: 260px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .queue-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .queue-badge {
+      background: #f44336;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .queue-item {
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .queue-item:hover {
+      background: #ffe0b2;
+      border-left-color: #ff6a00;
+    }
+    .queue-item .q-sid { color: #999; font-size: 11px; margin-top: 4px; }
+    .queue-empty {
+      color: #999;
+      font-size: 13px;
+      text-align: center;
+      padding: 30px 0;
+    }
+    .chat-container {
+      flex: 1;
+    }
+    .agent-header {
+      background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+    }
+    .agent-header .agent-id {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .agent-tooltip {
+      font-size: 12px;
+      color: #666;
+      background: #fff9e6;
+      padding: 8px;
+      border-radius: 6px;
+      margin: 8px 0;
+      text-align: center;
+    }
+    .msg.user .msg-content {
+      background: #fff;
+      color: #333;
+      border-top-left-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .msg.bot .msg-content {
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      color: #fff;
+      border-top-right-radius: 4px;
+    }
+    .btn-take {
+      background: #ff6a00;
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+    .btn-take:hover { background: #e65c00; }
+    .btn-close {
+      background: #f44336;
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="agent-layout">
+    <!-- 左侧队列 -->
+    <div class="queue-panel">
+      <div class="queue-title">
+        📋 待接入队列
+        <span class="queue-badge" id="queueBadge">0</span>
+      </div>
+      <div id="queueList">
+        <div class="queue-empty">暂无待接入会话<br>有用户点【转人工】后会在这里出现</div>
+      </div>
+    </div>
+
+    <!-- 右侧聊天区 -->
+    <div class="chat-container">
+      <header class="chat-header agent-header">
+        <div class="shop-info">
+          <div class="avatar">🧑‍💼</div>
+          <div class="shop-meta">
+            <div class="shop-name">人工坐席 <span class="agent-id" id="agentId">--</span></div>
+            <div class="shop-status">
+              <span class="status-dot online"></span>
+              <span id="statusText">等待接入用户...</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-close" id="closeBtn" style="display:none;">关闭会话</button>
+      </header>
+
+      <div class="message-area" id="messageArea">
+        <div class="agent-tooltip">👈 从左侧队列点击接入用户会话</div>
+      </div>
+
+      <div class="input-area">
+        <textarea id="inputBox" placeholder="选择会话后输入回复...（Enter发送）" rows="2" disabled></textarea>
+        <button class="btn-send" id="sendBtn" disabled>发送</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/web/js/agent.js"></script>
+</body>
+</html>

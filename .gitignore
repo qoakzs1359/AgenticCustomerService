@@ -1,0 +1,36 @@
+# 敏感配置
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pylibs/
+.pytest_cache/
+
+# Node.js
+node_modules/
+web-vue/node_modules/
+
+# 构建产物
+web/dist/
+
+# 日志
+logs/
+*.log
+server.log
+
+# 数据
+*.db
+*.sqlite3
+
+# HuggingFace 缓存（可选，体积大）
+# .cache/huggingface/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

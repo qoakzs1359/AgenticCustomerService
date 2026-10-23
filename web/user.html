@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电商客服 - 用户端</title>
+  <link rel="stylesheet" href="/web/css/style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <!-- 顶部店铺信息 -->
+    <header class="chat-header">
+      <div class="shop-info">
+        <div class="avatar">🛍️</div>
+        <div class="shop-meta">
+          <div class="shop-name">好物优选旗舰店</div>
+          <div class="shop-status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">连接中...</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-icon" id="clearBtn" title="清空对话">🗑️</button>
+    </header>
+
+    <!-- 消息列表 -->
+    <div class="message-area" id="messageArea">
+      <div class="welcome-message">
+        <div class="welcome-icon">👋</div>
+        <div>
+          <strong>你好呀~ 我是智能客服小助手</strong><br>
+          有任何关于商品、订单、物流的问题都可以问我哦！<br>
+          需要人工服务请发送【转人工】
+        </div>
+      </div>
+    </div>
+
+    <!-- 快捷提问（模拟淘宝常见问题） -->
+    <div class="quick-questions">
+      <button class="quick-btn" data-text="我的订单到哪了？订单号 DD20261022001">📦 查订单</button>
+      <button class="quick-btn" data-text="快递到哪了？快递号 SF1234567890">🚚 查物流</button>
+      <button class="quick-btn" data-text="P10086 这个商品有货吗？多少钱？">💰 查商品</button>
+      <button class="quick-btn handoff" data-text="转人工">👤 转人工</button>
+    </div>
+
+    <!-- 输入区 -->
+    <div class="input-area">
+      <textarea id="inputBox" placeholder="输入消息，按 Enter 发送，Shift+Enter 换行" rows="2"></textarea>
+      <button class="btn-send" id="sendBtn">发送</button>
+    </div>
+  </div>
+
+  <script src="/web/js/user.js"></script>
+</body>
+</html>
