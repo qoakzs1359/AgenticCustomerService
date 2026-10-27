@@ -12,18 +12,8 @@ from openai import AsyncOpenAI
 
 from src.core.config import settings
 from src.core.logging import log
-from src.agent.prompt import CUSTOMER_SERVICE_SYSTEM_PROMPT
+from src.agent.prompt_loader import PromptLoader, AgentNames
 from src.tools.mock_tools import get_tool_schemas, execute_tool
-
-
-# ====== 转人工关键词 ======
-HUMAN_HANDOFF_KEYWORDS = ["人工", "转人工", "人工客服", "客服人工"]
-
-
-def contains_human_keyword(text: str) -> bool:
-    """用户消息里有没有转人工关键词（在 LLM 之前硬拦截，省一次 API 调用）"""
-    text = text.strip()
-    return any(kw in text for kw in HUMAN_HANDOFF_KEYWORDS)
 
 
 class CustomerServiceAgent:
@@ -41,13 +31,16 @@ class CustomerServiceAgent:
                 base_url=settings.deepseek_base_url,
             )
         self.model = settings.deepseek_model
-        self.system_prompt = CUSTOMER_SERVICE_SYSTEM_PROMPT
+        self.agent_name = AgentNames.CUSTOMER_SERVICE
+        # system prompt 不再预加载 → 每次 chat 根据 intent 动态注入 category_context
         self.tool_schemas = get_tool_schemas()
 
     async def chat(
         self,
         user_text: str,
         conversation_history: list[dict[str, str]] | None = None,
+        intent_level_1: str | None = None,
+        intent_level_2: str | None = None,
     ) -> dict[str, Any]:
         """
         处理一条用户消息，返回:
@@ -56,16 +49,13 @@ class CustomerServiceAgent:
             "handoff_human": bool,     # 是否触发转人工
             "tool_called": list[str],  # 本轮调用过的 tool 名称
         }
-        """
-        # 0. 硬拦截：转人工关键词
-        if contains_human_keyword(user_text):
-            log.info("🎯 命中转人工关键词")
-            return {
-                "reply": "好的，正在为您转接人工客服，请稍候...",
-                "handoff_human": True,
-                "tool_called": [],
-            }
 
+        :param user_text:              用户原始输入
+        :param conversation_history:   历史对话（LLM messages 格式）
+        :param intent_level_1:         意图识别输出的一级问题类别名（如 "商品咨询"）
+        :param intent_level_2:         意图识别输出的二级问题编码（如 "GOODS_SPEC"）
+                                       留空或传 None 时走 _default.md 通用能力描述
+        """
         # 1. 未配置 API Key —— 返回 Mock
         if not self.client:
             return self._mock_reply(user_text)
@@ -78,8 +68,19 @@ class CustomerServiceAgent:
         except Exception as e:
             log.warning(f"⚠️ RAG 检索失败（不影响对话）: {e}")
 
-        # 3. 构建 messages
-        sys_content = self.system_prompt
+        # 3. 构建 messages —— 根据意图识别结果动态加载能力描述注入 system prompt
+        sys_content = PromptLoader.load_for_intent(
+            self.agent_name,
+            intent_level_1=intent_level_1,
+            intent_level_2=intent_level_2,
+        )
+        log.info(
+            f"📝 动态 Prompt 加载完成: "
+            f"intent_l1={intent_level_1 or '(未识别)'}, "
+            f"intent_l2={intent_level_2 or '(未识别)'}, "
+            f"prompt_len={len(sys_content)} chars"
+        )
+
         if rag_context:
             sys_content = f"{sys_content}\n\n{rag_context}\n\n（请优先参考以上知识库内容回答）"
 

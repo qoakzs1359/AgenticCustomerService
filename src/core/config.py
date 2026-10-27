@@ -1,11 +1,16 @@
 """
 全局配置 —— 从 .env 加载，用 pydantic-settings 做类型校验
 """
+import os
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# 绝对路径定位 .env（相对于 config.py 文件向上两级到项目根）
+_ENV_FILE = str(Path(__file__).resolve().parent.parent.parent / ".env")
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(env_file=_ENV_FILE, env_file_encoding="utf-8", extra="ignore")
 
     # ====== DeepSeek ======
     deepseek_api_key: str = ""

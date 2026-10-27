@@ -18,14 +18,23 @@ from src.agent.customer_service_agent import get_agent
 router = APIRouter()
 PERSIST_TIMEOUT = 5  # 秒
 
+# ====== 网关层转人工关键词（在进入任何 agent 之前拦截）======
+_HUMAN_HANDOFF_KEYWORDS = ["人工", "转人工", "人工客服", "客服人工", "我要人工", "真人客服"]
+
+
+def _contains_human_keyword(text: str) -> bool:
+    """网关层硬拦截：用户消息里有没有转人工关键词"""
+    return any(kw in text.strip() for kw in _HUMAN_HANDOFF_KEYWORDS)
+
 
 # ==================== 连接管理 ====================
 
 user_connections: dict[str, WebSocket] = {}
 agent_connections: dict[str, WebSocket] = {}
-session_agent_map: dict[str, str] = {}
-agent_queue: list[str] = []
-conversation_cache: dict[str, list[dict]] = {}
+session_agent_map: dict[str, str] = {}          # session_id → agent_id
+agent_active_sessions: dict[str, list[str]] = {}  # agent_id → [session_ids] 正向映射
+agent_queue: list[str] = []                     # 待接入队列
+conversation_cache: dict[str, list[dict]] = {}  # session_id → 历史消息
 
 
 def make_session_id() -> str:
@@ -162,7 +171,27 @@ async def user_websocket(ws: WebSocket):
                         await ws_send(ws, "error", "客服连接异常")
                     continue
 
-                # 走智能体
+                # 🆕 网关层硬拦截：转人工关键词（不进任何 agent）
+                if _contains_human_keyword(user_text):
+                    log.info(f"🎯 网关层拦截转人工: {session_id}")
+                    agent_queue.append(session_id)
+                    _bg_save_session_status(session_id, "transferred")
+                    _bg_save_messages(session_id, [("user", user_text)])
+                    await ws_send(ws, "reply", {
+                        "reply": "好的，正在为您转接人工客服，请稍候...",
+                        "tool_called": [],
+                    })
+                    await ws_send(ws, "handoff", {"session_id": session_id})
+                    log.info(f"🔁 会话 {session_id} 排队待人工接入，队列: {len(agent_queue)}")
+                    for agent_id, agent_ws in agent_connections.items():
+                        await ws_send(agent_ws, "new_handoff", {
+                            "session_id": session_id,
+                            "user_text": user_text,
+                        })
+                        await ws_send(agent_ws, "queue_update", agent_queue[:])
+                    continue  # 跳过后面的 agent.chat()
+
+                # 走智能体（intent_level_1/2 后续由 IntentAgent 接入后传入）
                 agent = get_agent()
                 history = await _load_history(session_id)
                 result = await agent.chat(user_text, history)
@@ -179,18 +208,6 @@ async def user_websocket(ws: WebSocket):
                     [("user", user_text), ("assistant", result["reply"])],
                     tool_called=result["tool_called"],
                 )
-
-                # 触发转人工
-                if result["handoff_human"]:
-                    agent_queue.append(session_id)
-                    _bg_save_session_status(session_id, "transferred")
-                    await ws_send(ws, "handoff", {"session_id": session_id})
-                    log.info(f"🔁 会话 {session_id} 排队待人工接入，队列: {len(agent_queue)}")
-                    for agent_id, agent_ws in agent_connections.items():
-                        await ws_send(agent_ws, "new_handoff", {
-                            "session_id": session_id,
-                            "user_text": user_text,
-                        })
 
     except WebSocketDisconnect:
         pass
@@ -217,9 +234,19 @@ async def agent_websocket(ws: WebSocket):
 
     agent_id = make_agent_id()
     agent_connections[agent_id] = ws
+    agent_active_sessions[agent_id] = []
 
     await ws_send(ws, "session_start", {"agent_id": agent_id})
     await ws_send(ws, "queue_update", agent_queue[:])
+    # 客服上线时，把该客服已接入的会话 + 每条的历史发过去
+    active = agent_active_sessions.get(agent_id, [])
+    active_with_history = []
+    for sid in active:
+        active_with_history.append({
+            "session_id": sid,
+            "history": conversation_cache.get(sid, []),
+        })
+    await ws_send(ws, "agent_sessions", active_with_history)
     log.info(f"🛡️  人工客服上线: {agent_id}")
 
     try:
@@ -233,12 +260,31 @@ async def agent_websocket(ws: WebSocket):
                 if session_id and session_id in agent_queue:
                     agent_queue.remove(session_id)
                     session_agent_map[session_id] = agent_id
+                    # 加进该客服的 active 列表
+                    if session_id not in agent_active_sessions[agent_id]:
+                        agent_active_sessions[agent_id].append(session_id)
                     _bg_save_session_status(session_id, "transferred")
-                    await ws_send(ws, "session_taken", {"session_id": session_id})
+
+                    # 发给客服端：会话接管成功 + 历史消息（让客服看到机器人之前聊了啥）
+                    history = conversation_cache.get(session_id, [])
+                    await ws_send(ws, "session_taken", {
+                        "session_id": session_id,
+                        "history": history,
+                    })
+
+                    # 通知用户端：人工客服已接入
                     user_ws = user_connections.get(session_id)
                     if user_ws:
-                        await ws_send(user_ws, "agent_connected", {"session_id": session_id, "agent_id": agent_id})
-                    log.info(f"🧑‍💼 客服 {agent_id} 接管会话 {session_id}")
+                        await ws_send(user_ws, "agent_connected", {
+                            "session_id": session_id,
+                            "agent_id": agent_id,
+                        })
+                        # 🆕 自动欢迎语 —— 接入后系统替人工客服说第一句话
+                        welcome = "您好！我是人工客服小助手，很高兴为您服务~请问有什么可以帮您？"
+                        await ws_send(user_ws, "agent_message", {"text": welcome})
+                        _bg_save_messages(session_id, [("assistant", welcome)])
+
+                    log.info(f"🧑‍💼 客服 {agent_id} 接管会话 {session_id}，历史 {len(history)} 条")
                     for aw in agent_connections.values():
                         await ws_send(aw, "queue_update", agent_queue[:])
 
@@ -255,10 +301,20 @@ async def agent_websocket(ws: WebSocket):
                 session_id = data.get("session_id")
                 if session_id:
                     session_agent_map.pop(session_id, None)
+                    # 从客服的 active 列表移除
+                    if agent_id in agent_active_sessions:
+                        agent_active_sessions[agent_id] = [
+                            s for s in agent_active_sessions[agent_id] if s != session_id
+                        ]
                     _bg_save_session_status(session_id, "closed")
                     user_ws = user_connections.get(session_id)
                     if user_ws:
                         await ws_send(user_ws, "session_closed", {"session_id": session_id})
+                    # 客服端自己也需要刷新 active 列表
+                    await ws_send(ws, "agent_sessions", [
+                        {"session_id": s, "history": conversation_cache.get(s, [])}
+                        for s in agent_active_sessions[agent_id]
+                    ])
                     log.info(f"❌ 会话 {session_id} 被客服 {agent_id} 关闭")
 
     except WebSocketDisconnect:
@@ -267,7 +323,10 @@ async def agent_websocket(ws: WebSocket):
         log.error(f"❌ 客服 WebSocket 异常: {e}")
     finally:
         agent_connections.pop(agent_id, None)
+        # 清理该客服所有 session 映射
         for sid in list(session_agent_map.keys()):
             if session_agent_map[sid] == agent_id:
                 del session_agent_map[sid]
+        # 清理 active 列表
+        agent_active_sessions.pop(agent_id, None)
         log.info(f"🛑 人工客服下线: {agent_id}")

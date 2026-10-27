@@ -58,21 +58,7 @@ app = FastAPI(
 )
 
 
-@app.get("/")
-async def root():
-    """根路径 —— 优先返回 Vue SPA，降级返回原生 HTML"""
-    if os.path.exists(os.path.join(FRONTEND_DIST, "index.html")):
-        return FileResponse(os.path.join(FRONTEND_DIST, "index.html"))
-    return FileResponse(FALLBACK_INDEX)
-
-
-@app.get("/agent")
-async def agent_page():
-    """客服后台路由"""
-    if os.path.exists(os.path.join(FRONTEND_DIST, "index.html")):
-        return FileResponse(os.path.join(FRONTEND_DIST, "index.html"))
-    return FileResponse("web/agent.html")
-
+# ====== 后端自有路由（必须在 spa_fallback 之前注册）======
 
 @app.get("/health")
 async def health():
@@ -80,19 +66,47 @@ async def health():
     return {"status": "ok", "version": "0.2.0"}
 
 
-# ====== 路由注册 ======
 from src.api.mock import router as mock_router
 from src.api.websocket import router as ws_router
 app.include_router(mock_router, prefix="/api/mock", tags=["Mock"])
 app.include_router(ws_router, tags=["WebSocket"])
 
 
-# ====== 静态文件（放在路由最后，避免 /api /ws 被静态接管）======
-if os.path.exists(FRONTEND_DIST):
-    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="static")
-else:
-    # 兜底：原生 HTML
-    app.mount("/web", StaticFiles(directory="web", html=True), name="web")
+# ====== SPA history 模式 fallback（必须放最后，否则会吞掉 /api /ws 等）======
+
+@app.get("/", include_in_schema=False)
+@app.get("/{full_path:path}", include_in_schema=False)
+async def spa_fallback(full_path: str | None = None):
+    """
+    所有非 API 路径 → 返回 Vue SPA index.html，让前端 createWebHistory() 路由接管。
+
+    顺序说明：
+      FastAPI 里具体路由（/health, /api/mock/*, /ws/* 等）会先被匹配到，
+      本函数是 catch-all 兜底，只处理那些后端不认识的路径（/user, /agent, /favicon.svg 等）。
+    """
+    dist_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), FRONTEND_DIST)
+
+    # 1. 有具体路径且是静态文件 → 正常返回
+    if full_path:
+        static_file = os.path.join(dist_dir, full_path)
+        # 安全：不能跳出 dist 目录
+        real_static = os.path.realpath(static_file)
+        real_dist = os.path.realpath(dist_dir)
+        if real_static.startswith(real_dist) and os.path.isfile(real_static):
+            return FileResponse(real_static)
+
+    # 2. 兜底：Vue SPA index.html（让前端路由处理 /user /agent 等）
+    index_html = os.path.join(dist_dir, "index.html")
+    if os.path.isfile(index_html):
+        return FileResponse(index_html)
+
+    # 3. 连前端产物都没有 → 原生 HTML 兜底
+    fallback = os.path.join(os.path.dirname(os.path.abspath(__file__)), FALLBACK_INDEX)
+    if os.path.isfile(fallback):
+        return FileResponse(fallback)
+
+    from fastapi import HTTPException
+    raise HTTPException(status_code=404, detail="Not Found")
 
 
 if __name__ == "__main__":
