@@ -1,0 +1,55 @@
+{
+  "request": {
+    "path": "data/intent_rag_kb.csv",
+    "kb_id": "kb_faq_v1",
+    "agent_scope": [
+      "customer_service"
+    ],
+    "tenant_id": "default",
+    "doc_id": "intent_rag_kb",
+    "doc_name": "intent_rag_kb.csv",
+    "version": 2,
+    "allow_partial": false,
+    "dry_run": false
+  },
+  "result": {
+    "ok": true,
+    "stage": "done",
+    "doc_id": "intent_rag_kb",
+    "file_type": "csv",
+    "profile": "qa_table",
+    "parents": 19,
+    "chunks": 19,
+    "points": 19,
+    "version": 2,
+    "coverage_ok": true,
+    "truncated_vectors": 0,
+    "warnings": [],
+    "error": null,
+    "report_path": "D:\\Project\\customer_service_agent\\data\\ingest_reports\\intent_rag_kb.json"
+  },
+  "chunk_report": {
+    "file": "data\\intent_rag_kb.csv",
+    "doc_id": "intent_rag_kb",
+    "file_type": "csv",
+    "profile": "qa_table",
+    "confidence": 0.99,
+    "units": 19,
+    "parents": 19,
+    "chunks": 19,
+    "split_units": 0,
+    "oversized": 0,
+    "hard_cuts": 0,
+    "gap_count": 0,
+    "gaps": [],
+    "coverage_ok": true,
+    "warnings": [],
+    "bad_units": []
+  },
+  "chunk_types": {
+    "faq": 19
+  },
+  "parents": 19,
+  "chunks": 19,
+  "elapsed_seconds": 66.796
+}

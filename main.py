@@ -83,8 +83,10 @@ async def health():
 # ====== 路由注册 ======
 from src.api.mock import router as mock_router
 from src.api.websocket import router as ws_router
+from src.api.intent import router as intent_router
 app.include_router(mock_router, prefix="/api/mock", tags=["Mock"])
 app.include_router(ws_router, tags=["WebSocket"])
+app.include_router(intent_router, tags=["意图识别"])
 
 
 # ====== 静态文件（放在路由最后，避免 /api /ws 被静态接管）======
