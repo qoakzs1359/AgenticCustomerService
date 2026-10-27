@@ -13,7 +13,7 @@ aiomysql>=0.2.0
 redis>=5.0
 
 # 向量库 & Embedding
-qdrant-client>=1.10
+qdrant-client>=1.12,<2.0
 sentence-transformers>=2.2
 
 # LLM 调用（DeepSeek 兼容 OpenAI 协议）
@@ -22,3 +22,9 @@ openai>=1.45
 # 工具
 loguru>=0.7
 python-dateutil>=2.9
+
+# 知识库切分
+PyMuPDF>=1.24
+python-docx>=1.1
+openpyxl>=3.1
+charset-normalizer>=3.3

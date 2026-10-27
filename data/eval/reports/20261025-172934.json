@@ -1,0 +1,7379 @@
+{
+  "suite": "data/eval/kb_eval_queries.jsonl",
+  "kb_id": "kb_faq_v1",
+  "agent_role": "intent_agent",
+  "generated_at": "2026-10-25T17:29:34",
+  "runs": [
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": null,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 132.7,
+      "latency_p95_ms": 1628.0,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=none type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": null,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 34.4,
+      "latency_p95_ms": 55.0,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=none type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.4,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 0.8936,
+      "latency_p50_ms": 98.6,
+      "latency_p95_ms": 5023.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.40 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.4,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 32.9,
+      "latency_p95_ms": 967.6,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.40 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.45,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 80.1,
+      "latency_p95_ms": 106.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.45 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.45,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 38.4,
+      "latency_p95_ms": 58.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.45 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.5,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 75.4,
+      "latency_p95_ms": 102.9,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.50 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.5,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 33.0,
+      "latency_p95_ms": 54.6,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.50 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.55,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 81.2,
+      "latency_p95_ms": 119.2,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.55 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": true,
+        "score_threshold": 0.55,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 41.0,
+      "latency_p95_ms": 57.5,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=on thr=0.55 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": null,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 86.4,
+      "latency_p95_ms": 110.5,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=none type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": null,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 38.6,
+      "latency_p95_ms": 56.2,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=none type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.4,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 82.8,
+      "latency_p95_ms": 113.7,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.40 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.4,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 39.8,
+      "latency_p95_ms": 58.0,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.40 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.45,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 80.9,
+      "latency_p95_ms": 108.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.45 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.45,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 31.6,
+      "latency_p95_ms": 53.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.45 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.5,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 78.5,
+      "latency_p95_ms": 109.0,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.50 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.5,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 43.0,
+      "latency_p95_ms": 63.7,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.50 type=off rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.55,
+        "use_chunk_type": true,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 87.3,
+      "latency_p95_ms": 115.4,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.55 type=on rerank=off",
+      "passed": false
+    },
+    {
+      "config": {
+        "use_query_instruction": false,
+        "score_threshold": 0.55,
+        "use_chunk_type": false,
+        "use_rerank": false,
+        "top_k": 10,
+        "rerank_top_n": 5,
+        "min_candidates": 5
+      },
+      "total_queries": 114,
+      "in_domain": 94,
+      "hit_at_1": 0.0,
+      "hit_at_3": 0.0,
+      "mrr": 0.0,
+      "ood_false_hit_rate": 0.0,
+      "no_hit_rate": 1.0,
+      "latency_p50_ms": 44.2,
+      "latency_p95_ms": 67.9,
+      "per_category": {
+        "AFTER_EXCHANGE": 0.0,
+        "AFTER_REFUND": 0.0,
+        "AFTER_RETURN": 0.0,
+        "GOODS_GIFT": 0.0,
+        "GOODS_QUALITY": 0.0,
+        "GOODS_SPEC": 0.0,
+        "GOODS_STOCK": 0.0,
+        "GOODS_USAGE": 0.0,
+        "LOG_ADDR": 0.0,
+        "LOG_FEE": 0.0,
+        "LOG_SHIP": 0.0,
+        "LOG_SIGN": 0.0,
+        "LOG_TRACK": 0.0,
+        "ORDER_CANCEL": 0.0,
+        "ORDER_QUERY": 0.0,
+        "PROMO_COUPON": 0.0,
+        "PROMO_DEPOSIT": 0.0,
+        "PROMO_PRICE": 0.0,
+        "PROMO_RULE": 0.0
+      },
+      "gates": {
+        "hit_at_3": false,
+        "hit_at_1": false,
+        "category_floor": false,
+        "ood_false_hit": true
+      },
+      "failures": [
+        {
+          "id": "AFTER_EXCHANGE-001",
+          "query": "补发一直没收到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-002",
+          "query": "少发怎么证明",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-003",
+          "query": "换货要重新下单吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-004",
+          "query": "换货能加急吗",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_EXCHANGE-005",
+          "query": "补发多久能到",
+          "expected": "AFTER_EXCHANGE",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-001",
+          "query": "周末退款会延迟吗",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-002",
+          "query": "退款要在订单页点哪里",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-003",
+          "query": "什么情况可以仅退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-004",
+          "query": "商家不同意退款",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_REFUND-005",
+          "query": "显示退款成功但没收到钱",
+          "expected": "AFTER_REFUND",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-001",
+          "query": "退货寄到哪个仓库",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-002",
+          "query": "退货物流慢会影响退款吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-003",
+          "query": "退货申请在哪提交",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-004",
+          "query": "退货要原包装寄回吗",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "AFTER_RETURN-005",
+          "query": "退货审核要多久",
+          "expected": "AFTER_RETURN",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-001",
+          "query": "赠品是随机发吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-002",
+          "query": "赠品价值多少",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-003",
+          "query": "套餐包含配件吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-004",
+          "query": "赠品颜色能指定吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_GIFT-005",
+          "query": "备注可以换赠品吗",
+          "expected": "GOODS_GIFT",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-001",
+          "query": "质检报告能发我看看吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-002",
+          "query": "是官方旗舰店发货吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-003",
+          "query": "能提供资质证明吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-004",
+          "query": "含棉量多少",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_QUALITY-005",
+          "query": "效果和宣传的一样吗",
+          "expected": "GOODS_QUALITY",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-001",
+          "query": "GOOD5斤穿什么码合适",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-002",
+          "query": "两款功率一样吗",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-003",
+          "query": "尺寸和重量分别是多少",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-004",
+          "query": "哪款配置更高一点",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_SPEC-005",
+          "query": "这件上衣配什么裤子好看",
+          "expected": "GOODS_SPEC",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-001",
+          "query": "预售和现货有什么区别",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-002",
+          "query": "现货是当天发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-003",
+          "query": "现在拍今天能发吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-004",
+          "query": "预售什么时候发货",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_STOCK-005",
+          "query": "现在拍是预售吗",
+          "expected": "GOODS_STOCK",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-001",
+          "query": "用之前需要先充电吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-002",
+          "query": "操作顺序是怎样的",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-003",
+          "query": "步骤能发我图文版吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-004",
+          "query": "孕妇可以用吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "GOODS_USAGE-005",
+          "query": "一个人能装好吗",
+          "expected": "GOODS_USAGE",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-001",
+          "query": "改地址能改到别的省吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-002",
+          "query": "这个地区能发京东吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-003",
+          "query": "换快递要补差价吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-004",
+          "query": "能直接让快递退回仓库吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_ADDR-005",
+          "query": "之前那家快递不送货能换吗",
+          "expected": "LOG_ADDR",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-001",
+          "query": "质量问题也要我付运费吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-002",
+          "query": "多付的运费能退吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-003",
+          "query": "运费是从退款里扣吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-004",
+          "query": "上门取件比自寄贵能补差吗",
+          "expected": "LOG_FEE",
+          "got": []
+        },
+        {
+          "id": "LOG_FEE-005",
+          "query": "运费险什么时候到账",
+          "expected": "LOG_FEE",
+          "got": []
+        }
+      ],
+      "config_label": "prefix=off thr=0.55 type=off rerank=off",
+      "passed": false
+    }
+  ],
+  "best": {
+    "config": {
+      "use_query_instruction": true,
+      "score_threshold": null,
+      "use_chunk_type": true,
+      "use_rerank": false,
+      "top_k": 10,
+      "rerank_top_n": 5,
+      "min_candidates": 5
+    },
+    "total_queries": 114,
+    "in_domain": 94,
+    "hit_at_1": 0.0,
+    "hit_at_3": 0.0,
+    "mrr": 0.0,
+    "ood_false_hit_rate": 0.0,
+    "no_hit_rate": 1.0,
+    "latency_p50_ms": 132.7,
+    "latency_p95_ms": 1628.0,
+    "per_category": {
+      "AFTER_EXCHANGE": 0.0,
+      "AFTER_REFUND": 0.0,
+      "AFTER_RETURN": 0.0,
+      "GOODS_GIFT": 0.0,
+      "GOODS_QUALITY": 0.0,
+      "GOODS_SPEC": 0.0,
+      "GOODS_STOCK": 0.0,
+      "GOODS_USAGE": 0.0,
+      "LOG_ADDR": 0.0,
+      "LOG_FEE": 0.0,
+      "LOG_SHIP": 0.0,
+      "LOG_SIGN": 0.0,
+      "LOG_TRACK": 0.0,
+      "ORDER_CANCEL": 0.0,
+      "ORDER_QUERY": 0.0,
+      "PROMO_COUPON": 0.0,
+      "PROMO_DEPOSIT": 0.0,
+      "PROMO_PRICE": 0.0,
+      "PROMO_RULE": 0.0
+    },
+    "gates": {
+      "hit_at_3": false,
+      "hit_at_1": false,
+      "category_floor": false,
+      "ood_false_hit": true
+    },
+    "failures": [
+      {
+        "id": "AFTER_EXCHANGE-001",
+        "query": "补发一直没收到",
+        "expected": "AFTER_EXCHANGE",
+        "got": []
+      },
+      {
+        "id": "AFTER_EXCHANGE-002",
+        "query": "少发怎么证明",
+        "expected": "AFTER_EXCHANGE",
+        "got": []
+      },
+      {
+        "id": "AFTER_EXCHANGE-003",
+        "query": "换货要重新下单吗",
+        "expected": "AFTER_EXCHANGE",
+        "got": []
+      },
+      {
+        "id": "AFTER_EXCHANGE-004",
+        "query": "换货能加急吗",
+        "expected": "AFTER_EXCHANGE",
+        "got": []
+      },
+      {
+        "id": "AFTER_EXCHANGE-005",
+        "query": "补发多久能到",
+        "expected": "AFTER_EXCHANGE",
+        "got": []
+      },
+      {
+        "id": "AFTER_REFUND-001",
+        "query": "周末退款会延迟吗",
+        "expected": "AFTER_REFUND",
+        "got": []
+      },
+      {
+        "id": "AFTER_REFUND-002",
+        "query": "退款要在订单页点哪里",
+        "expected": "AFTER_REFUND",
+        "got": []
+      },
+      {
+        "id": "AFTER_REFUND-003",
+        "query": "什么情况可以仅退款",
+        "expected": "AFTER_REFUND",
+        "got": []
+      },
+      {
+        "id": "AFTER_REFUND-004",
+        "query": "商家不同意退款",
+        "expected": "AFTER_REFUND",
+        "got": []
+      },
+      {
+        "id": "AFTER_REFUND-005",
+        "query": "显示退款成功但没收到钱",
+        "expected": "AFTER_REFUND",
+        "got": []
+      },
+      {
+        "id": "AFTER_RETURN-001",
+        "query": "退货寄到哪个仓库",
+        "expected": "AFTER_RETURN",
+        "got": []
+      },
+      {
+        "id": "AFTER_RETURN-002",
+        "query": "退货物流慢会影响退款吗",
+        "expected": "AFTER_RETURN",
+        "got": []
+      },
+      {
+        "id": "AFTER_RETURN-003",
+        "query": "退货申请在哪提交",
+        "expected": "AFTER_RETURN",
+        "got": []
+      },
+      {
+        "id": "AFTER_RETURN-004",
+        "query": "退货要原包装寄回吗",
+        "expected": "AFTER_RETURN",
+        "got": []
+      },
+      {
+        "id": "AFTER_RETURN-005",
+        "query": "退货审核要多久",
+        "expected": "AFTER_RETURN",
+        "got": []
+      },
+      {
+        "id": "GOODS_GIFT-001",
+        "query": "赠品是随机发吗",
+        "expected": "GOODS_GIFT",
+        "got": []
+      },
+      {
+        "id": "GOODS_GIFT-002",
+        "query": "赠品价值多少",
+        "expected": "GOODS_GIFT",
+        "got": []
+      },
+      {
+        "id": "GOODS_GIFT-003",
+        "query": "套餐包含配件吗",
+        "expected": "GOODS_GIFT",
+        "got": []
+      },
+      {
+        "id": "GOODS_GIFT-004",
+        "query": "赠品颜色能指定吗",
+        "expected": "GOODS_GIFT",
+        "got": []
+      },
+      {
+        "id": "GOODS_GIFT-005",
+        "query": "备注可以换赠品吗",
+        "expected": "GOODS_GIFT",
+        "got": []
+      },
+      {
+        "id": "GOODS_QUALITY-001",
+        "query": "质检报告能发我看看吗",
+        "expected": "GOODS_QUALITY",
+        "got": []
+      },
+      {
+        "id": "GOODS_QUALITY-002",
+        "query": "是官方旗舰店发货吗",
+        "expected": "GOODS_QUALITY",
+        "got": []
+      },
+      {
+        "id": "GOODS_QUALITY-003",
+        "query": "能提供资质证明吗",
+        "expected": "GOODS_QUALITY",
+        "got": []
+      },
+      {
+        "id": "GOODS_QUALITY-004",
+        "query": "含棉量多少",
+        "expected": "GOODS_QUALITY",
+        "got": []
+      },
+      {
+        "id": "GOODS_QUALITY-005",
+        "query": "效果和宣传的一样吗",
+        "expected": "GOODS_QUALITY",
+        "got": []
+      },
+      {
+        "id": "GOODS_SPEC-001",
+        "query": "GOOD5斤穿什么码合适",
+        "expected": "GOODS_SPEC",
+        "got": []
+      },
+      {
+        "id": "GOODS_SPEC-002",
+        "query": "两款功率一样吗",
+        "expected": "GOODS_SPEC",
+        "got": []
+      },
+      {
+        "id": "GOODS_SPEC-003",
+        "query": "尺寸和重量分别是多少",
+        "expected": "GOODS_SPEC",
+        "got": []
+      },
+      {
+        "id": "GOODS_SPEC-004",
+        "query": "哪款配置更高一点",
+        "expected": "GOODS_SPEC",
+        "got": []
+      },
+      {
+        "id": "GOODS_SPEC-005",
+        "query": "这件上衣配什么裤子好看",
+        "expected": "GOODS_SPEC",
+        "got": []
+      },
+      {
+        "id": "GOODS_STOCK-001",
+        "query": "预售和现货有什么区别",
+        "expected": "GOODS_STOCK",
+        "got": []
+      },
+      {
+        "id": "GOODS_STOCK-002",
+        "query": "现货是当天发吗",
+        "expected": "GOODS_STOCK",
+        "got": []
+      },
+      {
+        "id": "GOODS_STOCK-003",
+        "query": "现在拍今天能发吗",
+        "expected": "GOODS_STOCK",
+        "got": []
+      },
+      {
+        "id": "GOODS_STOCK-004",
+        "query": "预售什么时候发货",
+        "expected": "GOODS_STOCK",
+        "got": []
+      },
+      {
+        "id": "GOODS_STOCK-005",
+        "query": "现在拍是预售吗",
+        "expected": "GOODS_STOCK",
+        "got": []
+      },
+      {
+        "id": "GOODS_USAGE-001",
+        "query": "用之前需要先充电吗",
+        "expected": "GOODS_USAGE",
+        "got": []
+      },
+      {
+        "id": "GOODS_USAGE-002",
+        "query": "操作顺序是怎样的",
+        "expected": "GOODS_USAGE",
+        "got": []
+      },
+      {
+        "id": "GOODS_USAGE-003",
+        "query": "步骤能发我图文版吗",
+        "expected": "GOODS_USAGE",
+        "got": []
+      },
+      {
+        "id": "GOODS_USAGE-004",
+        "query": "孕妇可以用吗",
+        "expected": "GOODS_USAGE",
+        "got": []
+      },
+      {
+        "id": "GOODS_USAGE-005",
+        "query": "一个人能装好吗",
+        "expected": "GOODS_USAGE",
+        "got": []
+      },
+      {
+        "id": "LOG_ADDR-001",
+        "query": "改地址能改到别的省吗",
+        "expected": "LOG_ADDR",
+        "got": []
+      },
+      {
+        "id": "LOG_ADDR-002",
+        "query": "这个地区能发京东吗",
+        "expected": "LOG_ADDR",
+        "got": []
+      },
+      {
+        "id": "LOG_ADDR-003",
+        "query": "换快递要补差价吗",
+        "expected": "LOG_ADDR",
+        "got": []
+      },
+      {
+        "id": "LOG_ADDR-004",
+        "query": "能直接让快递退回仓库吗",
+        "expected": "LOG_ADDR",
+        "got": []
+      },
+      {
+        "id": "LOG_ADDR-005",
+        "query": "之前那家快递不送货能换吗",
+        "expected": "LOG_ADDR",
+        "got": []
+      },
+      {
+        "id": "LOG_FEE-001",
+        "query": "质量问题也要我付运费吗",
+        "expected": "LOG_FEE",
+        "got": []
+      },
+      {
+        "id": "LOG_FEE-002",
+        "query": "多付的运费能退吗",
+        "expected": "LOG_FEE",
+        "got": []
+      },
+      {
+        "id": "LOG_FEE-003",
+        "query": "运费是从退款里扣吗",
+        "expected": "LOG_FEE",
+        "got": []
+      },
+      {
+        "id": "LOG_FEE-004",
+        "query": "上门取件比自寄贵能补差吗",
+        "expected": "LOG_FEE",
+        "got": []
+      },
+      {
+        "id": "LOG_FEE-005",
+        "query": "运费险什么时候到账",
+        "expected": "LOG_FEE",
+        "got": []
+      }
+    ],
+    "config_label": "prefix=on thr=none type=on rerank=off",
+    "passed": false
+  }
+}

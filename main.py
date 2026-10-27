@@ -68,8 +68,10 @@ async def health():
 
 from src.api.mock import router as mock_router
 from src.api.websocket import router as ws_router
+from src.api.intent import router as intent_router
 app.include_router(mock_router, prefix="/api/mock", tags=["Mock"])
 app.include_router(ws_router, tags=["WebSocket"])
+app.include_router(intent_router, tags=["意图识别"])
 
 
 # ====== SPA history 模式 fallback（必须放最后，否则会吞掉 /api /ws 等）======
