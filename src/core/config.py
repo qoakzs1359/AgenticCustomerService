@@ -60,8 +60,16 @@ class Settings(BaseSettings):
     embedding_query_instruction: str = "为这个句子生成表示以用于检索相关文章："
 
     # ====== Rerank ======
+    # 后端切换：local = 本机加载 CrossEncoder；http = 调用服务器上的 rerank API
+    rerank_backend: str = "local"
     rerank_model_path: str = "BAAI/bge-reranker-base"
     rerank_max_length: int = 512
+    rerank_batch_size: int = 16
+    rerank_device: str | None = None
+    # http 后端：服务器 rerank 服务地址，如 http://127.0.0.1:8092
+    rerank_api_url: str = ""
+    rerank_api_path: str = "/rerank"
+    rerank_api_key: str = ""
 
     # ====== Server ======
     server_host: str = "0.0.0.0"
