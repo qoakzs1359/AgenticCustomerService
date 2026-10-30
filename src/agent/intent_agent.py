@@ -27,7 +27,7 @@ from openai import AsyncOpenAI
 
 from src.core.config import settings
 from src.core.logging import log
-from src.agent.intent_llm_prompt import build_intent_system_prompt, build_user_content
+from src.agent.intent_llm_prompt import system_prompt
 
 # LLM 完全不可用时的关键词兜底：最少的关键词 → 意图（不做完整覆盖）
 _RULE_FALLBACK: list[tuple[list[str], str, str, str]] = [
@@ -100,7 +100,7 @@ class IntentAgent:
                 base_url=settings.deepseek_base_url,
             )
         self.model = settings.deepseek_model
-        self.system_prompt = build_intent_system_prompt()
+        self.system_prompt = system_prompt
         self._evidence_builder = evidence_builder  # 惰性初始化，见 _retrieve_evidence
 
     # ====== 对外入口 ======
@@ -303,6 +303,34 @@ class IntentAgent:
             l2="unknown", confidence=0.5,
             reasoning="规则兜底无法识别", source="fallback",
         )
+
+
+# ====== 运行时变量渲染（编排层，不属于提示词文件） ======
+
+
+def build_context_block(evidence: list[dict] | None) -> str:
+    """把 evidence 列表渲染成 LLM user message 中的 {context} 文本块。
+
+    evidence 格式（与 src/intent/evidence.py 对齐）：
+      [{"idx": 1, "l2_code": "LOG_TRACK", "samples": ["片段原文", ...]}, ...]
+    """
+    if not evidence:
+        return "检索片段：（无）"
+    lines = [
+        "以下片段由知识库检索得到，可能存在语义相近但标签不同的干扰项；"
+        "请按规则第 2 条审视每条是否真正匹配用户诉求，勿盲目采信。"
+    ]
+    for e in evidence:
+        tag = e.get("l2_code", "")
+        for s in (e.get("samples") or []):
+            lines.append(f"[{e['idx']}] ({tag}) {s}")
+    lines.append("（片段括号内为知识库标注的意图标签，也是你唯一可输出的标签来源）")
+    return "\n".join(lines)
+
+
+def build_user_content(user_text: str, evidence: list[dict] | None) -> str:
+    """组装完整的 LLM user message：{context} 块 + 用户原文。"""
+    return f"{build_context_block(evidence)}\n\n{user_text}"
 
 
 # ====== 单例 ======
