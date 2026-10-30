@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from src.agent.intent_llm_prompt import build_context_block
+from src.agent.intent_agent import build_context_block
 from src.rag.kb_retriever import RetrieveRequest, RetrieveResult, Retriever
 
 # 意图样本库：kb.py 入库时使用的常量
