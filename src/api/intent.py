@@ -32,16 +32,14 @@ class ClassifyRequest(BaseModel):
 
 class DetectResponse(BaseModel):
     l1: str
-    l2: str
-    l3: str = ""
-    confidence: float
-    confidence_breakdown: dict[str, float] = {}
-    reasoning: str = ""
-    evidence_refs: list[int] = []
-    need_clarify: bool = False
-    clarify_hint: str = ""
-    multi: list[str] = []
-    source: str
+    l2_code: str
+    l2_name: str
+    confidence_level: str          # HIGH / MID / LOW / NONE
+    evidence_refs: list[int] = []  # LLM 参考的检索片段编号
+    evidence_source: str           # refs 第一条对应的 l2_code（代码层派生）
+    evidence_score: float          # refs 第一条对应的 CrossEncoder rerank_score（代码层派生）
+    evidence_texts: list[str] = [] # refs 对应的片段原文（代码层派生）
+    source: str                    # llm / fallback
     evidence_count: int = 0
     server_time: str = ""  # 北京时间
 
@@ -81,15 +79,13 @@ async def detect(req: DetectRequest):
     result = await agent.detect(req.user_text)
     return DetectResponse(
         l1=result.l1,
-        l2=result.l2,
-        l3=result.l3,
-        confidence=result.confidence,
-        confidence_breakdown=result.confidence_breakdown,
-        reasoning=result.reasoning,
+        l2_code=result.l2_code,
+        l2_name=result.l2_name,
+        confidence_level=result.confidence_level,
         evidence_refs=result.evidence_refs,
-        need_clarify=result.need_clarify,
-        clarify_hint=result.clarify_hint,
-        multi=result.multi,
+        evidence_source=result.evidence_source,
+        evidence_score=result.evidence_score,
+        evidence_texts=result.evidence_texts,
         source=result.source,
         evidence_count=len(result.evidence or []),
         server_time=now_str(),
@@ -106,15 +102,12 @@ async def classify(req: ClassifyRequest):
     result = await agent.classify(req.user_text, evidence=req.evidence)
     return DetectResponse(
         l1=result.l1,
-        l2=result.l2,
-        l3=result.l3,
-        confidence=result.confidence,
-        confidence_breakdown=result.confidence_breakdown,
-        reasoning=result.reasoning,
+        l2_code=result.l2_code,
+        l2_name=result.l2_name,
+        confidence_level=result.confidence_level,
         evidence_refs=result.evidence_refs,
-        need_clarify=result.need_clarify,
-        clarify_hint=result.clarify_hint,
-        multi=result.multi,
+        evidence_source=result.evidence_source,
+        evidence_score=result.evidence_score,
         source=result.source,
         evidence_count=len(result.evidence or []),
         server_time=now_str(),

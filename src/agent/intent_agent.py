@@ -1,21 +1,23 @@
 """
 意图识别智能体 —— 完整链路编排：用户问题 → 知识库向量检索 → LLM 意图判定
 
-分工（与 src/agent/customer_service_agent.py 对齐）：
-  intent_llm_prompt.py   意图识别 LLM 的提示词工程设计（角色/规则/模糊处理/置信度公式/输出契约）
-  src/intent/evidence.py 知识库检索与证据聚合（动态变量 {context} 的来源）
-  本文件                 智能体编排（检索调度 / 调 LLM / 注入动态变量 / 校验 / 重试 / 兜底）
+分工：
+  intent_llm_prompt.py   意图识别 LLM 的提示词（角色/分类规则/taxonomy/输出契约）
+  src/intent/evidence.py 知识库检索与证据聚合（rerank_score 透传）
+  本文件                 编排（检索 → LLM 判定 → 证据填充 → 兜底）
+
+输出 6 字段（IntentResult）：
+  LLM 输出 4 字段：l1 / l2_code / l2_name / confidence_level
+  代码层填充 2 字段：evidence_source（top1 l2_code）/ evidence_score（CrossEncoder rerank）
 
 链路：
-  用户问题 → 向量检索知识库（kb_intent_v1）→ 证据聚合（带标签片段）
-          → LLM 判定（{context} + {user_question} 注入）→ IntentResult（结构化输出）
+  用户问题 → 向量检索（多路召回 + RRF + CrossEncoder rerank）
+          → 证据聚合（按 l2_code 聚类，保留 top_rerank_score）
+          → LLM 判定（{taxonomy} + {context} + {user_question}）
+          → 代码层填 evidence_source / evidence_score
+          → IntentResult
 
-降级策略（任一环节不可用不阻塞链路）：
-  检索服务不可用 / 无命中 → 无证据判定（LLM 仅凭 {user_question} 判断，可输出 unknown）
-  LLM 完全不可用（未配 key / 连续失败）→ 关键词规则兜底
-
-路由说明：
-  IntentResult → 子 Agent 路由为预留能力（route()），暂不实现。
+降级：检索不可用 → LLM 无证据判定；LLM 不可用 → 关键词规则兜底
 """
 from __future__ import annotations
 
@@ -27,68 +29,190 @@ from openai import AsyncOpenAI
 
 from src.core.config import settings
 from src.core.logging import log
-from src.agent.intent_llm_prompt import system_prompt
+from src.agent.intent_llm_prompt import system_prompt as _PROMPT_TEMPLATE, TAXONOMY
 
-# LLM 完全不可用时的关键词兜底：最少的关键词 → 意图（不做完整覆盖）
+# 渲染一次 taxonomy，后续只替换动态的 {context} 和 {user_question}
+_SYSTEM_PROMPT_BASE = _PROMPT_TEMPLATE.replace("{taxonomy}", TAXONOMY)
+
+# LLM 完全不可用时的关键词兜底
 _RULE_FALLBACK: list[tuple[list[str], str, str, str]] = [
-    (["转人工", "人工客服"], "订单&售后退款", "ORDER_QUERY", "转人工/找人工客服"),
-    (["退款", "退货", "拒收"], "订单&售后退款", "AFTER_REFUND", "退款退货相关"),
-    (["订单", "下单", "取消"], "订单&售后退款", "ORDER_QUERY", "订单相关"),
-    (["快递", "物流", "发货", "签收", "单号"], "物流咨询", "LOG_TRACK", "物流相关"),
-    (["尺码", "型号", "参数"], "商品咨询", "GOODS_SPEC", "商品规格参数"),
-    (["价格", "多少钱", "优惠", "券", "满减"], "活动优惠咨询", "PROMO_RULE", "价格优惠相关"),
-    (["价保", "保价", "补差"], "活动优惠咨询", "PROMO_PRICE", "价保补差"),
+    (["转人工", "人工客服"], "订单&售后退款", "ORDER_QUERY", "查询订单状态/找不到订单"),
+    (["退款", "退货", "拒收"], "订单&售后退款", "AFTER_REFUND", "仅退款流程/退款到账时效"),
+    (["换货"], "订单&售后退款", "AFTER_EXCHANGE", "换货/补发（少发漏发）申请"),
+    (["订单", "下单", "取消"], "订单&售后退款", "ORDER_QUERY", "查询订单状态/找不到订单"),
+    (["快递", "物流", "发货", "签收", "单号", "催发"], "物流咨询", "LOG_TRACK", "物流查询/停滞不更新"),
+    (["尺码", "型号", "参数"], "商品咨询", "GOODS_SPEC", "规格参数/尺码选择咨询"),
+    (["价格", "多少钱", "优惠", "券", "满减"], "活动优惠咨询", "PROMO_RULE", "活动规则/满减/到手价计算"),
+    (["价保", "保价", "补差"], "活动优惠咨询", "PROMO_PRICE", "价保补差咨询"),
+    (["运费", "运费险"], "物流咨询", "LOG_FEE", "运费/运费险相关咨询"),
+    (["库存", "现货", "补货"], "商品咨询", "GOODS_STOCK", "库存/补货/发货时效咨询"),
 ]
+
+_CONFIDENCE_LEVELS = {"HIGH", "MID", "LOW", "NONE"}
+
+# ====== 意图漂移检测专用规则 ======
+# 设计原则：
+#   1. 每条漂移规则只关心 (keywords → l1)，不需要精确到 l2_code
+#      —— 漂移检测的目标是"判断一级类别有没有变"，不需要做精准分类
+#   2. 每条规则的关键词都是该 l1 最标志性的词，保证命中后 l1 判断可靠
+#   3. 规则表独立于 _RULE_FALLBACK —— _RULE_FALLBACK 服务于 LLM 兜底识别，
+#      这里服务于"快速判断新消息的一级类别归属"，两者目标不同
+
+# l2_code → l1 的完整映射表（从 TAXONOMY 硬编码，和 taxonomy 同步维护）
+_L1_BY_L2: dict[str, str] = {
+    # 商品咨询
+    "GOODS_SPEC": "商品咨询",
+    "GOODS_USAGE": "商品咨询",
+    "GOODS_STOCK": "商品咨询",
+    "GOODS_GIFT": "商品咨询",
+    "GOODS_QUALITY": "商品咨询",
+    # 物流咨询
+    "LOG_SHIP": "物流咨询",
+    "LOG_TRACK": "物流咨询",
+    "LOG_SIGN": "物流咨询",
+    "LOG_FEE": "物流咨询",
+    "LOG_ADDR": "物流咨询",
+    # 订单&售后退款
+    "ORDER_QUERY": "订单&售后退款",
+    "ORDER_CANCEL": "订单&售后退款",
+    "AFTER_REFUND": "订单&售后退款",
+    "AFTER_RETURN": "订单&售后退款",
+    "AFTER_EXCHANGE": "订单&售后退款",
+    # 活动优惠咨询
+    "PROMO_COUPON": "活动优惠咨询",
+    "PROMO_RULE": "活动优惠咨询",
+    "PROMO_PRICE": "活动优惠咨询",
+    "PROMO_DEPOSIT": "活动优惠咨询",
+}
+
+# 漂移检测规则：(关键词列表, 归属 l1)
+# 同一关键词出现在多条规则中时，先匹配到的生效（列表顺序 = 优先级）
+_SHIFT_RULES: list[tuple[list[str], str]] = [
+    # 订单&售后退款 —— 优先级最高，因为"退款"也可能和"运费险退款"等混淆
+    (["退款", "退货", "拒收", "仅退", "退钱"], "订单&售后退款"),
+    (["换货", "补发", "少发", "漏发"], "订单&售后退款"),
+    (["订单", "下单", "取消订单", "取消", "找不到订单"], "订单&售后退款"),
+
+    # 物流咨询
+    (["快递", "物流", "发货", "签收", "单号", "催发", "到哪", "到哪了"], "物流咨询"),
+    (["运费", "运费险"], "物流咨询"),
+    (["拦截", "改地址", "改收货", "送到哪"], "物流咨询"),
+
+    # 商品咨询
+    (["尺码", "型号", "参数", "规格", "颜色", "多大"], "商品咨询"),
+    (["库存", "现货", "补货", "还有货", "没货"], "商品咨询"),
+    (["用法", "怎么用", "怎么装", "安装", "使用方法"], "商品咨询"),
+    (["正品", "真的假的", "材质", "功效"], "商品咨询"),
+    (["赠品", "送什么", "套餐内容"], "商品咨询"),
+
+    # 活动优惠咨询
+    (["价格", "多少钱", "优惠", "满减", "到手价"], "活动优惠咨询"),
+    (["券", "优惠券", "领券", "券失效"], "活动优惠咨询"),
+    (["价保", "保价", "补差", "降价"], "活动优惠咨询"),
+    (["定金", "尾款", "预售"], "活动优惠咨询"),
+]
+
+# 方案 A：用户主动表达"换个话题"的标记词 —— 命中必漂移
+_SHIFT_MARKERS: list[str] = [
+    "换个", "换一换", "对了", "还有", "另外", "顺便", "话说回来",
+    "不说这个了", "回到正题", "问个别的", "还有个问题", "另外问下",
+    "顺便问下", "还有一件事",
+]
+
+# 漂移检测结果枚举
+class ShiftResult:
+    STAY = "stay"                    # 无漂移
+    SHIFT_BY_MARKER = "shift_marker" # 方案 A：标记词触发
+    SHIFT_BY_RULE = "shift_rule"     # 方案 C：规则冲突触发
+
+
+def check_intent_shift(user_text: str, cached_l1: str | None) -> str:
+    """检测用户新消息是否已从缓存意图漂移到新话题（方案 A + C 组合）
+
+    :param user_text:     用户最新消息
+    :param cached_l1:     当前缓存的一级类别名（如 "物流咨询"），None 表示无缓存
+    :return: ShiftResult 中的一个字符串常量 —— 调用方据此决定是否重跑意图识别
+    """
+    if not cached_l1:
+        return ShiftResult.STAY  # 没缓存谈不上漂移
+
+    text = user_text.strip()
+
+    # ── 方案 A：用户主动说"换个话题" → 必漂 ──
+    for marker in _SHIFT_MARKERS:
+        if marker in text:
+            log.info(f"🔀 漂移检出[方案A-标记词]: '{marker}'")
+            return ShiftResult.SHIFT_BY_MARKER
+
+    # ── 方案 C：taxonomy 规则冲突 → 疑似漂 ──
+    for keywords, rule_l1 in _SHIFT_RULES:
+        if any(kw in text for kw in keywords):
+            if rule_l1 != cached_l1:
+                kw_hit = [kw for kw in keywords if kw in text][:3]
+                log.info(
+                    f"🔀 漂移检出[方案C-规则冲突]: "
+                    f"缓存l1={cached_l1}, 新消息命中l1={rule_l1}, 关键词={kw_hit}"
+                )
+                return ShiftResult.SHIFT_BY_RULE
+            # 命中且和缓存 l1 一致 → 不漂移，直接返回
+            return ShiftResult.STAY
+
+    # 新消息没命中任何规则 → 不触发漂移（保守策略，避免过度重识别）
+    return ShiftResult.STAY
 
 
 @dataclass
 class IntentResult:
-    """意图判定结果（LLM 输出的规范化对象）"""
+    """意图判定结果（v3.2）
 
-    l1: str = "unknown"
-    l2: str = "unknown"
-    l3: str = ""
-    confidence: float = 0.0
-    confidence_breakdown: dict[str, float] = field(default_factory=dict)
-    reasoning: str = ""
-    evidence_refs: list[int] = field(default_factory=list)
-    need_clarify: bool = False
-    clarify_hint: str = ""
-    multi: list[str] = field(default_factory=list)
-    source: str = "llm"  # llm / fallback
-    evidence: list[dict] = field(default_factory=list)  # 本次判定使用的证据（追溯用）
+    LLM 输出 5 字段，代码层派生 3 字段。
+    """
+
+    # === LLM 输出 ===
+    l1: str = "未知"              # 一级类别名称
+    l2_code: str = "unknown"      # 二级类别编码
+    l2_name: str = "unknown"      # 二级类别名称
+    confidence_level: str = "NONE"  # HIGH / MID / LOW / NONE
+    evidence_refs: list[int] = field(default_factory=list)  # LLM 参考的检索片段编号
+
+    # === 代码层派生（从 evidence_refs + evidence 查得） ===
+    evidence_source: str = ""     # refs 第一条对应的 l2_code
+    evidence_score: float = 0.0   # refs 第一条对应的 top_rerank_score
+    evidence_texts: list[str] = field(default_factory=list)  # refs 对应的片段原文
+
+    # === 系统元信息 ===
+    source: str = "llm"           # llm / fallback
+    evidence: list[dict] = field(default_factory=list)  # 追溯用
 
     @property
     def is_unknown(self) -> bool:
-        return self.l2 == "unknown"
+        return self.l2_code == "unknown"
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "l1": self.l1,
-            "l2": self.l2,
-            "l3": self.l3,
-            "confidence": self.confidence,
-            "confidence_breakdown": self.confidence_breakdown,
-            "reasoning": self.reasoning,
+            "l2_code": self.l2_code,
+            "l2_name": self.l2_name,
+            "confidence_level": self.confidence_level,
             "evidence_refs": self.evidence_refs,
-            "need_clarify": self.need_clarify,
-            "clarify_hint": self.clarify_hint,
-            "multi": self.multi,
+            "evidence_source": self.evidence_source,
+            "evidence_score": round(self.evidence_score, 4),
+            "evidence_texts": self.evidence_texts,
             "source": self.source,
-            "evidence": self.evidence,
+            "evidence_count": len(self.evidence),
         }
 
 
 class IntentAgent:
-    """意图识别智能体：用户问题 → 知识库向量检索 → LLM 判定 → 校验/重试 → 兜底
+    """意图识别智能体。
 
     用法：
         agent = get_intent_agent()
-        result = await agent.detect("我的快递三天没更新了")   # 完整链路（检索+判定）
-        result = await agent.detect("...", evidence=evs)      # 外部已检索好，直接判定
+        result = await agent.detect("我的快递三天没更新了")
+        result = await agent.detect("...", evidence=evs)  # 跳过检索
     """
 
-    MAX_RETRY = 1  # LLM 输出非法 JSON / 非法标签时重试次数
+    MAX_RETRY = 1
 
     def __init__(self, evidence_builder=None):
         if not settings.deepseek_api_key:
@@ -100,24 +224,17 @@ class IntentAgent:
                 base_url=settings.deepseek_base_url,
             )
         self.model = settings.deepseek_model
-        self.system_prompt = system_prompt
-        self._evidence_builder = evidence_builder  # 惰性初始化，见 _retrieve_evidence
+        self._evidence_builder = evidence_builder
 
     # ====== 对外入口 ======
 
     async def detect(
         self, user_text: str, evidence: list[dict] | None = None
     ) -> IntentResult:
-        """意图识别主入口：默认完整链路（向量检索 → LLM 判定）。
-
-        参数:
-            user_text: 用户原始消息
-            evidence:  外部已检索好的证据（传入则跳过检索步骤）
-        """
+        """完整链路：向量检索 → LLM 判定 → 证据填充"""
         text = user_text.strip()
         if not text:
-            return IntentResult(l2="unknown", confidence=0.0,
-                                reasoning="空消息", source="fallback")
+            return self._empty_result()
 
         if evidence is None:
             evidence = self._retrieve_evidence(text)
@@ -126,211 +243,183 @@ class IntentAgent:
     async def classify(
         self, user_text: str, evidence: list[dict] | None = None
     ) -> IntentResult:
-        """LLM 意图判定（证据驱动，不负责检索）。"""
+        """仅 LLM 判定（evidence 由外部传入）"""
         text = user_text.strip()
         if not text:
-            return IntentResult(l2="unknown", confidence=0.0,
-                                reasoning="空消息", source="fallback")
+            return self._empty_result()
 
-        # 未配置 API Key —— 规则兜底
+        # 规则兜底
         if not self.client:
-            return self._rule_fallback(text)
+            result = self._rule_fallback(text)
+            self._fill_evidence(result, evidence)
+            return result
 
-        # 从 evidence 动态提取「合法标签集合」（无证据 → 空集，走 unknown）
-        valid_tags = self._extract_valid_tags(evidence)
-
-        user_content = build_user_content(text, evidence)
+        # 组装 system prompt（taxonomy 已预渲染，这里替换动态的 context + user_question）
+        system_content = _SYSTEM_PROMPT_BASE.replace(
+            "{context}", build_context_block(evidence)
+        ).replace(
+            "{user_question}", text
+        )
         messages = [
-            {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": user_content},
+            {"role": "system", "content": system_content},
         ]
 
         for attempt in range(self.MAX_RETRY + 1):
             try:
-                result = await self._call_llm(messages, valid_tags)
+                result = await self._call_llm(messages)
                 if result is not None:
                     result.evidence = evidence or []
+                    self._fill_evidence(result, evidence)
                     return result
                 log.warning(f"⚠️ 意图判定输出非法，第 {attempt + 1} 次重试")
             except Exception as e:
                 log.warning(f"⚠️ 意图判定请求异常: {e}，第 {attempt + 1} 次重试")
 
-        # 全挂 —— 规则兜底
+        # 全挂 → 规则兜底
         log.warning("⚠️ 意图判定 LLM 调用失败，降级为规则兜底")
-        return self._rule_fallback(text)
-
-    # ====== 子 Agent 路由（预留） ======
-
-    def route(self, result: IntentResult):
-        """预留：按判定结果路由到对应子 Agent（暂不实现）。
-
-        规划：
-            - result.is_unknown            → 兜底回复智能体
-            - result.need_clarify          → 澄清流程（用 result.clarify_hint 反问）
-            - 其他                          → 按 result.l2 路由到对应业务子 Agent
-        返回 None 表示路由尚未接入。
-        """
-        # TODO: 接入子 Agent 路由表后实现
-        return None
+        result = self._rule_fallback(text)
+        self._fill_evidence(result, evidence)
+        return result
 
     # ====== 内部实现 ======
 
+    def _empty_result(self) -> IntentResult:
+        return IntentResult(source="fallback")
+
     def _retrieve_evidence(self, query: str) -> list[dict] | None:
-        """向量检索知识库并聚合证据；检索不可用时降级为 None（不阻塞判定）。"""
         try:
             if self._evidence_builder is None:
                 from src.intent.evidence import get_evidence_builder
-
                 self._evidence_builder = get_evidence_builder()
-            evidence = self._evidence_builder.build(query)
+            evidence = self._evidence_builder.build(query, enable_rerank=True)
             if evidence:
-                log.info(f"🔍 检索到 {len(evidence)} 组候选证据: "
-                         f"{[e['l2_code'] for e in evidence]}")
+                log.info(f"🔍 检索到 {len(evidence)} 组候选: {[e['l2_code'] for e in evidence]}")
             else:
                 log.info("🔍 知识库无命中，走无证据判定")
             return evidence
         except Exception as e:
-            log.warning(f"⚠️ 知识库检索不可用，降级为无证据判定: "
-                        f"{type(e).__name__}: {e}")
+            log.warning(f"⚠️ 检索不可用，降级为无证据判定: {type(e).__name__}: {e}")
             return None
 
     @staticmethod
-    def _extract_valid_tags(evidence: list[dict] | None) -> set[str]:
-        """从 evidence 动态提取合法标签集合（{context} 中出现的标签）"""
-        if not evidence:
-            return set()
-        return {str(e.get("l2_code", "")).strip().upper() for e in evidence if e.get("l2_code")}
+    def _fill_evidence(result: IntentResult, evidence: list[dict] | None) -> None:
+        """代码层从 LLM 输出的 evidence_refs 派生 evidence_source / evidence_score / evidence_texts。
 
-    async def _call_llm(
-        self, messages: list[dict], valid_tags: set[str]
-    ) -> IntentResult | None:
-        """调一次 LLM，返回规范化结果；解析/校验失败返回 None
-
-        valid_tags: 本次 {context} 中出现的标签集合；LLM 输出的 l2 必须 ∈ valid_tags ∪ {unknown}
+        查找顺序：refs 里第一个有效 idx → 对应 evidence 条目 → 取 l2_code + top_rerank_score + samples 原文。
+        refs 为空、idx 无效、或 evidence 无匹配时，都留空/留 0。
         """
+        if not evidence or not result.evidence_refs:
+            return
+        evidence_by_idx = {e.get("idx"): e for e in evidence}
+        texts: list[str] = []
+        first_match = None
+        for ref in result.evidence_refs:
+            ev = evidence_by_idx.get(ref)
+            if not ev:
+                continue
+            if first_match is None:
+                first_match = ev
+            # 每条 evidence 可能有多个 samples，全部收进 texts（去重）
+            for s in (ev.get("samples") or []):
+                if s and s not in texts:
+                    texts.append(s)
+
+        if first_match is None:
+            # refs 全部无效 → fallback 到 evidence[0]
+            first_match = evidence[0]
+        result.evidence_source = str(first_match.get("l2_code", "") or "")
+        rerank = first_match.get("top_rerank_score", 0.0) or 0.0
+        vector = first_match.get("top_score", 0.0) or 0.0
+        result.evidence_score = float(rerank or vector)
+        result.evidence_texts = texts
+
+    async def _call_llm(self, messages: list[dict]) -> IntentResult | None:
+        """调一次 LLM，解析 5 字段输出，失败返回 None"""
         response = await self.client.chat.completions.create(
             model=self.model,
             messages=messages,
             response_format={"type": "json_object"},
-            temperature=0.0,  # 分类任务要稳定，不要随机
+            temperature=0.0,
         )
         raw = (response.choices[0].message.content or "").strip()
         data = json.loads(raw)
 
-        l2_raw = str(data.get("l2", "")).strip()
-        l2 = l2_raw.upper()
-        # unknown 大小写归一化后统一为小写 "unknown"，其余标签保持大写编码
-        if l2 == "UNKNOWN":
-            l2 = "unknown"
-        if l2 != "unknown" and l2 not in valid_tags:
-            log.warning(
-                f"⚠️ LLM 输出了不在检索片段中的标签: {l2}（合法集合={valid_tags}）"
-            )
-            return None
+        # l1
+        l1 = str(data.get("l1", "")).strip() or "未知"
 
-        l1 = str(data.get("l1", "")).strip()
-        l3 = str(data.get("l3", "")).strip()
-        reasoning = str(data.get("reasoning", "")).strip()
+        # l2_code：大写，空或 UNKNOWN 统一为 "unknown"
+        l2_code = str(data.get("l2_code", "")).strip().upper()
+        if not l2_code or l2_code == "UNKNOWN":
+            l2_code = "unknown"
 
-        try:
-            confidence = float(data.get("confidence", 0.0))
-        except (TypeError, ValueError):
-            confidence = 0.0
-        confidence = max(0.0, min(1.0, confidence))
+        # l2_name
+        l2_name = str(data.get("l2_name", "")).strip()
+        if not l2_name or l2_name.lower() == "unknown":
+            l2_name = "unknown"
 
-        # confidence_breakdown: LLM 逐个因子的估算（0~1）
-        breakdown_raw = data.get("confidence_breakdown", {}) or {}
-        confidence_breakdown: dict[str, float] = {}
-        if isinstance(breakdown_raw, dict):
-            for key in ("evidence_alignment", "intent_clarity", "category_specificity"):
-                try:
-                    confidence_breakdown[key] = max(
-                        0.0, min(1.0, float(breakdown_raw.get(key, 0.0)))
-                    )
-                except (TypeError, ValueError):
-                    confidence_breakdown[key] = 0.0
+        # confidence_level：校验四档
+        cl = str(data.get("confidence_level", "")).strip().upper()
+        if cl not in _CONFIDENCE_LEVELS:
+            cl = "NONE"
 
-        multi = data.get("multi", []) or []
-        if isinstance(multi, list):
-            multi = [str(m).strip().upper() for m in multi if str(m).strip()]
-            multi = [
-                ("unknown" if m == "UNKNOWN" else m)
-                for m in multi
-                if m in valid_tags or m == "UNKNOWN"
+        # evidence_refs：int 数组，最多 2 个，非法值忽略
+        refs_raw = data.get("evidence_refs", []) or []
+        refs: list[int] = []
+        if isinstance(refs_raw, list):
+            refs = [
+                int(r) for r in refs_raw
+                if str(r).strip().lstrip("-").isdigit()
             ][:2]
 
-        # evidence_refs: LLM 引用的证据编号（int 列表）；非法值忽略
-        evidence_refs = data.get("evidence_refs", []) or []
-        if isinstance(evidence_refs, list):
-            evidence_refs = [
-                int(r) for r in evidence_refs
-                if str(r).strip().lstrip("-").isdigit()
-            ][:8]
-        else:
-            evidence_refs = []
+        # unknown 时强制一致
+        if l2_code == "unknown":
+            l1 = "未知"
+            l2_name = "unknown"
+            cl = "NONE"
+            refs = []
 
-        need_clarify = bool(data.get("need_clarify", False))
-        clarify_hint = str(data.get("clarify_hint", "")).strip()
-
-        log.info(
-            f"🎯 意图判定: L1={l1} L2={l2} 置信度={confidence:.2f} "
-            f"澄清={need_clarify} 证据={evidence_refs}"
-        )
+        log.info(f"🎯 意图: L1={l1} L2={l2_code}({l2_name}) CL={cl} refs={refs}")
         return IntentResult(
-            l1=l1,
-            l2=l2,
-            l3=l3,
-            confidence=confidence,
-            confidence_breakdown=confidence_breakdown,
-            reasoning=reasoning,
-            evidence_refs=evidence_refs,
-            need_clarify=need_clarify,
-            clarify_hint=clarify_hint,
-            multi=multi,
+            l1=l1, l2_code=l2_code, l2_name=l2_name, confidence_level=cl,
+            evidence_refs=refs,
             source="llm",
         )
 
     def _rule_fallback(self, text: str) -> IntentResult:
-        """LLM 不可用时的关键词兜底"""
-        for keywords, l1, l2, reason in _RULE_FALLBACK:
+        for keywords, l1, l2_code, l2_name in _RULE_FALLBACK:
             if any(kw in text for kw in keywords):
                 return IntentResult(
-                    l1=l1, l2=l2, l3=reason,
-                    confidence=0.5, reasoning=f"规则兜底: {reason}",
+                    l1=l1, l2_code=l2_code, l2_name=l2_name,
+                    confidence_level="MID",  # 规则兜底给 MID
                     source="fallback",
                 )
         return IntentResult(
-            l2="unknown", confidence=0.5,
-            reasoning="规则兜底无法识别", source="fallback",
+            confidence_level="NONE",
+            source="fallback",
         )
 
 
-# ====== 运行时变量渲染（编排层，不属于提示词文件） ======
+# ====== 运行时工具函数 ======
 
 
 def build_context_block(evidence: list[dict] | None) -> str:
-    """把 evidence 列表渲染成 LLM user message 中的 {context} 文本块。
-
-    evidence 格式（与 src/intent/evidence.py 对齐）：
-      [{"idx": 1, "l2_code": "LOG_TRACK", "samples": ["片段原文", ...]}, ...]
-    """
+    """把 evidence 列表渲染成 system prompt 中的 {context} 块。"""
     if not evidence:
-        return "检索片段：（无）"
+        return "（无检索片段）"
     lines = [
-        "以下片段由知识库检索得到，可能存在语义相近但标签不同的干扰项；"
-        "请按规则第 2 条审视每条是否真正匹配用户诉求，勿盲目采信。"
+        "以下是知识库检索到的相似问题片段（仅供参考，可能存在语义相近但标签不同的干扰项，",
+        "以你对用户真实诉求的理解为准）：",
     ]
     for e in evidence:
-        tag = e.get("l2_code", "")
+        code = e.get("l2_code", "")
+        name = e.get("l2_name", "")
+        rerank = e.get("top_rerank_score", 0.0)
+        score_str = f"rerank={rerank:.2f}" if rerank else ""
+        tag = f"{code}({name})" if name else code
         for s in (e.get("samples") or []):
-            lines.append(f"[{e['idx']}] ({tag}) {s}")
-    lines.append("（片段括号内为知识库标注的意图标签，也是你唯一可输出的标签来源）")
+            suffix = f" {score_str}" if score_str else ""
+            lines.append(f"[{e['idx']}] {tag}{suffix}: {s}")
     return "\n".join(lines)
-
-
-def build_user_content(user_text: str, evidence: list[dict] | None) -> str:
-    """组装完整的 LLM user message：{context} 块 + 用户原文。"""
-    return f"{build_context_block(evidence)}\n\n{user_text}"
 
 
 # ====== 单例 ======
@@ -345,5 +434,4 @@ def get_intent_agent() -> IntentAgent:
 
 
 async def detect_intent(user_text: str) -> IntentResult:
-    """便捷函数：单条消息意图识别（完整链路）"""
     return await get_intent_agent().detect(user_text)

@@ -13,6 +13,7 @@ from openai import AsyncOpenAI
 from src.core.config import settings
 from src.core.logging import log
 from src.agent.prompt_loader import PromptLoader, AgentNames
+from src.agent.intent_agent import IntentResult
 from src.tools.mock_tools import get_tool_schemas, execute_tool
 
 
@@ -41,6 +42,7 @@ class CustomerServiceAgent:
         conversation_history: list[dict[str, str]] | None = None,
         intent_level_1: str | None = None,
         intent_level_2: str | None = None,
+        intent_evidence: IntentResult | None = None,
     ) -> dict[str, Any]:
         """
         处理一条用户消息，返回:
@@ -55,16 +57,28 @@ class CustomerServiceAgent:
         :param intent_level_1:         意图识别输出的一级问题类别名（如 "商品咨询"）
         :param intent_level_2:         意图识别输出的二级问题编码（如 "GOODS_SPEC"）
                                        留空或传 None 时走 _default.md 通用能力描述
+        :param intent_evidence:        IntentAgent 完整识别结果，用于复用 evidence_texts
+                                       避免重复 RAG 检索；None 时独立检索
         """
         # 1. 未配置 API Key —— 返回 Mock
         if not self.client:
             return self._mock_reply(user_text)
 
-        # 2. RAG 检索商品知识（失败不阻断，降级为空上下文）
+        # 2. RAG 检索 —— 优先复用 IntentAgent 的 evidence_texts，否则独立检索
         rag_context = ""
         try:
-            from src.rag.retriever import get_rag_retriever
-            rag_context = get_rag_retriever().retrieve(user_text, top_k=3)
+            if intent_evidence and intent_evidence.evidence_texts:
+                rag_context = "\n".join(
+                    f"[{i+1}] {t}" for i, t in enumerate(intent_evidence.evidence_texts)
+                )
+                log.info(
+                    f"📎 复用意图识别检索片段 {len(intent_evidence.evidence_texts)} 条 "
+                    f"(source={intent_evidence.source})"
+                )
+            else:
+                from src.rag.retriever import get_rag_retriever
+                rag_context = get_rag_retriever().retrieve(user_text, top_k=3)
+                log.info("🔍 独立 RAG 检索（无意图 evidence 可复用）")
         except Exception as e:
             log.warning(f"⚠️ RAG 检索失败（不影响对话）: {e}")
 

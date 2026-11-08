@@ -34,20 +34,23 @@ class Evidence:
     chunk_ids 保留在 trace()，供 badcase 追溯（不进 prompt）。
     """
 
-    __slots__ = ("idx", "l2_code", "l2_name", "hits", "top_score", "samples", "chunk_ids")
+    __slots__ = ("idx", "l2_code", "l2_name", "hits", "top_score", "top_rerank_score", "samples", "chunk_ids")
 
     def __init__(self, idx: int, l2_code: str, l2_name: str = ""):
         self.idx = idx
         self.l2_code = l2_code
         self.l2_name = l2_name
         self.hits = 0
-        self.top_score = 0.0
+        self.top_score = 0.0         # 向量最高分（兜底用）
+        self.top_rerank_score = 0.0  # CrossEncoder rerank 最高分（优先用，代码层填 evidence_score）
         self.samples: list[str] = []
         self.chunk_ids: list[str] = []
 
-    def add(self, text: str, score: float, chunk_id: str) -> None:
+    def add(self, text: str, score: float, chunk_id: str, rerank_score: float | None = None) -> None:
         self.hits += 1
         self.top_score = max(self.top_score, score)
+        if rerank_score is not None:
+            self.top_rerank_score = max(self.top_rerank_score, rerank_score)
         if len(self.samples) < 2:
             self.samples.append(text)
         if len(self.chunk_ids) < 8:
@@ -58,6 +61,8 @@ class Evidence:
             "idx": idx,
             "l2_code": self.l2_code,
             "l2_name": self.l2_name,
+            "top_score": round(self.top_score, 4),
+            "top_rerank_score": round(self.top_rerank_score, 4),
             "samples": self.samples,
         }
         if include_trace:
@@ -70,6 +75,7 @@ class Evidence:
             "l2_code": self.l2_code,
             "hits": self.hits,
             "top_score": round(self.top_score, 4),
+            "top_rerank_score": round(self.top_rerank_score, 4),
             "samples": self.samples,
             "chunk_ids": self.chunk_ids,
         }
@@ -96,7 +102,7 @@ class EvidenceBuilder:
         self,
         query: str,
         *,
-        enable_rerank: bool = False,
+        enable_rerank: bool = True,
         include_trace: bool = False,
     ) -> list[dict]:
         """检索意图样本库并按 L2 聚合，返回证据摘要列表（按命中数排序，最多 4 条）。
@@ -109,16 +115,16 @@ class EvidenceBuilder:
         result = self._retrieve(query, enable_rerank=enable_rerank)
         return self.aggregate(result, include_trace=include_trace)
 
-    def retrieve_raw(self, query: str, *, enable_rerank: bool = False) -> RetrieveResult:
+    def retrieve_raw(self, query: str, *, enable_rerank: bool = True) -> RetrieveResult:
         """直接返回原始检索结果（含每个片段的向量 score），供调试/评估用。"""
         return self._retrieve(query, enable_rerank=enable_rerank)
 
     def _retrieve(self, query: str, *, enable_rerank: bool) -> RetrieveResult:
         """复用新链路 kb_retriever（只查意图样本库）。"""
         if self.retriever is None:
-            from src.rag.kb_retriever import Retriever
+            from src.rag.kb_retriever import Retriever, get_reranker
 
-            self.retriever = Retriever()
+            self.retriever = Retriever(reranker=get_reranker())
         request = RetrieveRequest(
             query=query,
             agent_role=self.agent_role,
@@ -148,7 +154,9 @@ class EvidenceBuilder:
             if not l2:
                 l2 = str(citation.biz_category or "unknown").strip().upper()
             bucket = buckets.setdefault(l2, Evidence(idx=0, l2_code=l2, l2_name=l2))
-            bucket.add(getattr(ctx, "text", ""), float(ctx.score), citation.chunk_id)
+            # rerank_score 有就用（CrossEncoder 精排的结果），没有传 None fallback 到向量 score
+            rerank = getattr(ctx, "rerank_score", None)
+            bucket.add(getattr(ctx, "text", ""), float(ctx.score), citation.chunk_id, rerank_score=rerank)
 
         # 按命中条数排序（并列按最高分），取前 4
         ordered = sorted(buckets.values(), key=lambda b: (b.hits, b.top_score), reverse=True)[:4]
@@ -156,7 +164,7 @@ class EvidenceBuilder:
 
     # ====== 便捷输出 ======
 
-    def build_block(self, query: str, *, enable_rerank: bool = False) -> str:
+    def build_block(self, query: str, *, enable_rerank: bool = True) -> str:
         """直接得到可注入 prompt 的证据文本（调试/CLI 用）。"""
         return build_context_block(self.build(query, enable_rerank=enable_rerank))
 

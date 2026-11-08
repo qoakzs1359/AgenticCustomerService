@@ -10,10 +10,15 @@ from __future__ import annotations
 import asyncio
 import json
 import uuid
+from dataclasses import dataclass, field
 from typing import Any
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from src.core.logging import log
 from src.agent.customer_service_agent import get_agent
+from src.agent.intent_agent import (
+    get_intent_agent, IntentResult,
+    check_intent_shift, ShiftResult,
+)
 
 router = APIRouter()
 PERSIST_TIMEOUT = 5  # 秒
@@ -25,6 +30,28 @@ _HUMAN_HANDOFF_KEYWORDS = ["人工", "转人工", "人工客服", "客服人工"
 def _contains_human_keyword(text: str) -> bool:
     """网关层硬拦截：用户消息里有没有转人工关键词"""
     return any(kw in text.strip() for kw in _HUMAN_HANDOFF_KEYWORDS)
+
+
+async def _detect_intent_safe(user_text: str) -> IntentResult:
+    """意图识别（安全降级 —— 任何异常都返回空结果，绝不阻断主链路）"""
+    try:
+        agent = get_intent_agent()
+        return await agent.detect(user_text)
+    except Exception as e:
+        log.warning(f"⚠️ 意图识别异常（降级为空结果）: {type(e).__name__}: {e}")
+        return IntentResult(confidence_level="NONE", source="fallback")
+
+
+@dataclass
+class SessionIntentState:
+    """会话级意图状态 —— 让同一 session 内的多轮对话共享意图识别结果"""
+
+    intent: IntentResult | None = None          # 已识别的可信意图（HIGH/MID）
+    clarification_round: int = 0                # 澄清反问已进行的轮次（超过 2 次 → 转人工）
+
+
+# session_id → SessionIntentState
+session_intent_state: dict[str, SessionIntentState] = {}
 
 
 # ==================== 连接管理 ====================
@@ -191,10 +218,114 @@ async def user_websocket(ws: WebSocket):
                         await ws_send(agent_ws, "queue_update", agent_queue[:])
                     continue  # 跳过后面的 agent.chat()
 
-                # 走智能体（intent_level_1/2 后续由 IntentAgent 接入后传入）
+                # ──────────────────────────────────────────────
+                # 会话状态初始化
+                # ──────────────────────────────────────────────
+                state = session_intent_state.setdefault(session_id, SessionIntentState())
+
+                # ──────────────────────────────────────────────
+                # 意图缓存决策：复用 or 重识别
+                # ──────────────────────────────────────────────
+                intent_result: IntentResult | None = None
+                reuse_cached = False
+                need_detect = True  # 是否需要跑 IntentAgent.detect()
+
+                if state.intent is not None:
+                    # 已有缓存 → 先做漂移检测（方案 A + C，零延迟）
+                    shift = check_intent_shift(user_text, state.intent.l1)
+                    if shift == ShiftResult.STAY:
+                        # ✅ 无漂移 → 安全复用
+                        intent_result = state.intent
+                        reuse_cached = True
+                        need_detect = False
+                        log.info(
+                            f"📦 [{session_id}] 复用已缓存意图: "
+                            f"L1={intent_result.l1} L2={intent_result.l2_code} "
+                            f"(跳过本轮意图识别)"
+                        )
+                    else:
+                        # 🔀 漂移检出 → 清缓存，下面重跑意图识别
+                        log.info(
+                            f"🧹 [{session_id}] 意图缓存失效({shift})，"
+                            f"旧缓存: L1={state.intent.l1} L2={state.intent.l2_code}"
+                        )
+                        state.intent = None
+                        state.clarification_round = 0
+
+                # ──────────────────────────────────────────────
+                # 意图识别（need_detect=False 表示已复用缓存，跳过）
+                # ──────────────────────────────────────────────
+                if need_detect:
+                    intent_result = await _detect_intent_safe(user_text)
+                    cl = intent_result.confidence_level
+
+                    if cl in ("HIGH", "MID"):
+                        # ✅ 可信 → 存入缓存
+                        state.intent = intent_result
+                        state.clarification_round = 0
+                        log.info(
+                            f"🎯 [{session_id}] 意图确认并缓存: "
+                            f"L1={intent_result.l1} L2={intent_result.l2_code} CL={cl}"
+                        )
+                    else:
+                        # ❌ LOW / NONE → 澄清 or 转人工
+                        state.clarification_round += 1
+                        log.info(
+                            f"🤔 [{session_id}] 意图模糊 CL={cl}, "
+                            f"澄清轮次={state.clarification_round}"
+                        )
+
+                        if state.clarification_round >= 2:
+                            log.info(f"🔁 [{session_id}] 澄清 2 次仍不明确，转接人工")
+                            agent_queue.append(session_id)
+                            _bg_save_session_status(session_id, "transferred")
+                            _bg_save_messages(session_id, [("user", user_text)])
+                            await ws_send(ws, "reply", {
+                                "reply": "抱歉我暂时没理解您的问题，正在为您转接人工客服，请稍候...",
+                                "tool_called": [],
+                            })
+                            await ws_send(ws, "handoff", {"session_id": session_id})
+                            for agent_id, agent_ws in agent_connections.items():
+                                await ws_send(agent_ws, "new_handoff", {
+                                    "session_id": session_id,
+                                    "user_text": user_text,
+                                })
+                                await ws_send(agent_ws, "queue_update", agent_queue[:])
+                            continue
+
+                        clarifications = [
+                            "您好，为了更好地帮您解决问题，请问您是想咨询【订单状态】、【物流快递】、【商品信息】还是【活动优惠】相关的问题呢？",
+                            "抱歉我还没完全理解您的意思~ 可以再具体描述一下吗？比如是要查订单、问物流、还是咨询商品或活动呢？",
+                        ]
+                        reply_text = clarifications[state.clarification_round - 1]
+                        _bg_save_messages(session_id, [("user", user_text), ("assistant", reply_text)])
+                        await ws_send(ws, "reply", {"reply": reply_text, "tool_called": []})
+                        continue  # ← 本轮到此为止
+
+                # ──────────────────────────────────────────────
+                # 意图确定 → 传给客服 Agent
+                # ──────────────────────────────────────────────
+                assert intent_result is not None
+                intent_l1 = intent_result.l1
+                intent_l2 = intent_result.l2_code
+                log.info(
+                    f"💬 [{session_id}] → 客服 Agent: "
+                    f"l1={intent_l1} l2={intent_l2}"
+                    f"{' (复用缓存)' if reuse_cached else ' (新识别)'}"
+                )
+
+                # ──────────────────────────────────────────────
+                # 走客服智能体
+                # ──────────────────────────────────────────────
                 agent = get_agent()
                 history = await _load_history(session_id)
-                result = await agent.chat(user_text, history)
+                result = await agent.chat(
+                    user_text,
+                    history,
+                    intent_level_1=intent_l1,
+                    intent_level_2=intent_l2,
+                    intent_evidence=intent_result,
+                )
 
                 # ⚡ 先回复用户（不能等持久化）
                 await ws_send(ws, "reply", {
@@ -216,6 +347,7 @@ async def user_websocket(ws: WebSocket):
     finally:
         user_connections.pop(session_id, None)
         conversation_cache.pop(session_id, None)
+        session_intent_state.pop(session_id, None)
         _bg_save_session_status(session_id, "closed")
         if session_id in session_agent_map:
             agent_id = session_agent_map.pop(session_id)

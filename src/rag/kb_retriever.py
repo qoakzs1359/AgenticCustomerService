@@ -431,7 +431,9 @@ class CrossEncoderReranker:
             raise RerankError(
                 f"HTTP Rerank 返回 {len(scores)} 条，期望 {len(texts)} 条"
             )
-        return [float(s) for s in scores]
+        # 远程 rerank API 返回的也是 raw logit，统一过 sigmoid 变成 0~1 概率
+        import math
+        return [1.0 / (1.0 + math.exp(-float(s))) for s in scores]
 
     def score(self, query: str, texts: list[str]) -> list[float]:
         """对 query 与 texts 做 CrossEncoder 重排打分。
@@ -450,6 +452,7 @@ class CrossEncoderReranker:
                 [[query, text] for text in texts],
                 batch_size=self.batch_size,
                 show_progress_bar=False,
+                apply_sigmoid=True,  # 输出 0~1 概率而非 raw logit
             )
             return [float(value) for value in raw]
         except Exception as exc:
